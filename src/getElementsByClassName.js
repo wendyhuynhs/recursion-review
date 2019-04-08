@@ -7,18 +7,19 @@
 var getElementsByClassName = function(className) {
   var results = [];
   
-  function recurse(body) {
-    for(let i = 0; i < body.length; i++){
-      if(_.contains(body[i].classList,className)){
-        results.push(body[i]);
+  function recurse(nodes) {
+    var nodeList = nodes.children;
+    for(let i = 0; i < nodeList.length; i++){
+      if(_.contains(nodeList[i].classList,className)){
+        results.push(nodeList[i]);
       }
-      if(body[i].children){
-        getElementsByClassName(body[i]);
+      if(nodeList[i].children){
+        recurse(nodeList[i]);
       }
     }
   }
 
-  recurse(document.body);
+  recurse(document);
   console.log(results)
   return results;
 };
